@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Reproductor Crunchyroll</title>
+	<title>Crunchyroll Player</title>
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/player.css?v=1">
 	<link rel="stylesheet" type="text/css" href="assets/css/download_dialog.css?v=1">
@@ -27,7 +27,7 @@
 			</svg>
 		</div>
 		<div class="loading_text_container">
-			<div class="loading_text">Tu video comenzará en un momento. (^-^)<span class="corta_linha"></span>Esperando datos de transmisión..</div>
+			<div class="loading_text">Tu video comenzará en un momento. (^-^)<span class="corta_linha"></span>Esperando datos de transmisión...</div>
 		</div>
 	</div>
 	<div class="modal" style="transform: translate3d(0px, 0px, 0px);visibility: hidden;">
@@ -61,20 +61,26 @@
 	<div class="modal" style="transform: translate3d(0px, 0px, 0px);visibility: hidden;">
 		   <button class="close-modal">×</button>
 		   <div class="download-item">
-			<span class="partdditem quality not-copyable">Registro De Cambios</span>
+			<span class="partdditem quality not-copyable">Changelog</span>
 			<span class="partdditem size not-copyable">v1.1.0</span>
 		   </div>
 		   <div class="download-item">
 			<span id="changelog" class="partdditem quality not-copyable" style="font-family: 'SFProDisplay-Regular';">
-				<strong>Actualización disponible:</strong><br/>
-				- Añadida la compatibilidad con <strong>Crunchyroll Beta</strong><br/>
-				- Se Eliminó la dependencia de allOrigins (proxy externo)<br/>
+				<strong>Update available:</strong><br/>
+				- Add <strong>Crunchyroll Beta</strong> compatibility<br/>
+				- Remove allOrigins (external proxy) dependency<br/>
+				- Kiwi is incompatible with this version
 			</span>
 		   </div>
 		   <div class="download-item">
-		   	<span class="partdditem quality not-copyable">Descargar (pc)</span>
+		   	<span class="partdditem quality not-copyable">Download (pc)</span>
 		   	<a class="partdditem down-icon" href="https://github.com/mateus7g/crp-iframe-player/releases/download/v1.1.0/Crunchyroll_Premium.zip" target="_top" download></a>
 		   </div>
+		   <div class="download-item" style="display: none;">
+		   	<span class="partdditem quality not-copyable">Download (kiwi)</span>
+		   	<a class="partdditem down-icon" href="https://github.com/mateus7g/crp-iframe-player/releases/download/v1.1.0/Crunchyroll_Premium_Kiwi-Browser.zip" target="_top" download></a>
+		   </div>
+	</div>
 	<div id="player_div"></div>
 	<script src="assets/js/player.js"></script>
 </body>

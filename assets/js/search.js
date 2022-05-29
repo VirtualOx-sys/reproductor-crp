@@ -1,4 +1,4 @@
-//ignora este archivo, es solo para buscar si dnv cae
+// ignore esse arquivo, é só para pesquisar se cair dnv
 
 const axios = require('axios');
 const atob = require('atob');
