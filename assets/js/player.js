@@ -9,9 +9,9 @@ window.addEventListener("message", async e => {
     document.getElementsByTagName('head')[0].appendChild(meta);
   }
 
-  console.log('[CR Premium] Player encontrado!')
+  console.log('[CR Premium] ¡Reproductor encontrado!')
 
-  // Variáveis principais
+  // Variables Principales
   const promises=[], request = [];
   const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
   for (let i in r) promises[i] = new Promise((resolve, reject) => request[i] = { resolve, reject });
@@ -49,7 +49,7 @@ window.addEventListener("message", async e => {
     dlUrl[idx] = document.getElementById(r[idx] + "_down_url");
   }
 
-  // Obter streams
+  // Obtener transmisión
   const streamlist = video_config_media['streams'];
   const hasUserLang = streamlist.find(stream => stream.hardsub_lang == user_lang);
   const search_lang = hasUserLang ? user_lang : null;
@@ -62,7 +62,7 @@ window.addEventListener("message", async e => {
         const arr_idx = (rows_number === 0 ? 2 : (rows_number === 2 ? 0 : rows_number));
         video_mp4_array[arr_idx] = getDirectFile(stream.url);
         rows_number++;
-        // mp4 + resolve temporario até pegar link direto da m3u8
+        // mp4 + Resolución temporal hasta obtener un enlace directo desde m3u8
         if (rows_number > 4) {
           video_m3u8_array = video_mp4_array;
           for (let i in r) {
@@ -81,7 +81,7 @@ window.addEventListener("message", async e => {
     }
   }
 
-  // Pega o numero e titulo do episodio
+  // Obtener el número de episodio y el título
   const epLangs = { "ptBR": "Episódio", "enUS": "Episode", "enGB": "Episode", "esLA": "Episodio", "esES": "Episodio", "ptPT": "Episódio", "frFR": "Épisode", "deDE": "Folge", "arME": "الحلقة", "itIT": "Episodio", "ruRU": "Серия" };
   const fnLangs = { "ptBR": "FINAL", "enUS": "FINAL", "enGB": "FINAL", "esLA": "FINAL", "esES": "FINAL", "ptPT": "FINAL", "frFR": "FINALE", "deDE": "FINALE", "arME": "نهائي", "itIT": "FINALE", "ruRU": "ФИНАЛЬНЫЙ" };
   episode_translate = `${epLangs[user_lang[0]] ? epLangs[user_lang[0]] : "Episode"} `;
@@ -95,7 +95,7 @@ window.addEventListener("message", async e => {
   } else
     episode_title = episode_translate + video_config_media['metadata']['display_episode_number'] + final_translate;
 
-  // Checa se o URL do video_mp4_array[id] existe e calcula o tamanho p/ download
+  // Comprueba si existe la URL video_mp4_array[id] y calcula el tamaño de la descarga
   function linkDownload(id, tentativas=0) {
     console.log('  - Baixando: ', r[id])
     let video_mp4_url = video_mp4_array[id];
@@ -114,7 +114,7 @@ window.addEventListener("message", async e => {
           if (i == 0) return console.log('addSource#i == 0');
           let return_fileSize = (fileSize / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
           dlSize[id].innerText = return_fileSize;
-          return console.log(`[CR Premium] Source adicionado: ${r[id]} (${return_fileSize})`);
+          return console.log(`[CR Premium] Fuente añadida: ${r[id]} (${return_fileSize})`);
         }
       } else if (http.readyState == 4 && tentativas < 3)
         return setTimeout(() => linkDownload(id, tentativas + 1), 5000);
@@ -123,7 +123,7 @@ window.addEventListener("message", async e => {
     http.send(null);
   }
 
-  // Carregar player assim que encontrar as URLs dos m3u8.
+  // Cargue el reproductor una vez que encuentre las URL m3u8.
   Promise.all(promises).then(() => {
     for (let idx of [1, 0, 2, 3, 4])
       sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx<2 ? '<sup><sup>HD</sup></sup>' : '')});
@@ -160,7 +160,7 @@ window.addEventListener("message", async e => {
       "cast": {},
       "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
     }).on('playlistItem', e => {
-      // tocar próximo ep
+      // reproducir el siguiente episodio
       if (e.index > 0 && up_next_enable && up_next){
         jwplayer().setControls(false);
         jwplayer().setConfig({
@@ -173,45 +173,45 @@ window.addEventListener("message", async e => {
       }
     })
 
-    // Variaveis para os botões.
+    // Variables para los botones.
     let update_iconPath = "assets/icon/update_icon.svg";
     let update_id = "update-video-button";
-    let update_tooltipText = "Atualização Disponível";
+    let update_tooltipText = "Actualización disponible";
 
     let rewind_iconPath = "assets/icon/replay-10s.svg";
     let rewind_id = "rewind-video-button";
-    let rewind_tooltipText = "Voltar 10s";
+    let rewind_tooltipText = "Retroceder 10s";
 
     let forward_iconPath = "assets/icon/forward-30s.svg";
     let forward_id = "forward-video-button";
-    let forward_tooltipText = "Avançar 30s";
+    let forward_tooltipText = "Adelantar 30s";
 
     let download_iconPath = "assets/icon/download_icon.svg";
     let download_id = "download-video-button";
-    let download_tooltipText = "Download";
+    let download_tooltipText = "Descargar";
     let didDownload = false;
 
     const rewind_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition()-10)
     const forward_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition()+30)
 
-    // funcion ao clicar no botao de fechar o menu de download
+    // Función al hacer clic en el botón para cerrar el menú de descarga
     const downloadModal = document.querySelectorAll(".modal")[0];
     const updateModal = document.querySelectorAll(".modal")[1];
     document.querySelectorAll("button.close-modal")[0].onclick = () => downloadModal.style.visibility = "hidden";
     document.querySelectorAll("button.close-modal")[1].onclick = () => updateModal.style.visibility = "hidden";
 
-    // function ao clicar no botao de baixar
+    // función al hacer clic en el botón de descarga
     function download_ButtonClickAction() {
-      // Se estiver no mobile, muda um pouco o design do menu
+      // Si está en el móvil, cambie un poco el diseño del menú.
       if (jwplayer().getEnvironment().OS.mobile == true) {
         downloadModal.style.height = "170px";
         downloadModal.style.overflow = "auto";
       }
       
-      // Mostra o menu de download
+      // Mostrar menú de descarga
       downloadModal.style.visibility = downloadModal.style.visibility === "hidden" ? "visible" : "hidden";
       
-      // Carrega os downloads
+      // cargar las descargas
       if (!didDownload) {
         didDownload = true;
         console.log('[CR Premium] Baixando sources:')
@@ -219,7 +219,7 @@ window.addEventListener("message", async e => {
           linkDownload(id);
       }
     }
-    // function ao clicar no botao de update
+    // función al hacer clic en el botón de actualización
     function update_ButtonClickAction() {
       if (jwplayer().getEnvironment().OS.mobile == true) {
         updateModal.style.height = "170px";
@@ -236,23 +236,23 @@ window.addEventListener("message", async e => {
     if (version !== "1.1.0")
       playerInstance.addButton(update_iconPath, update_tooltipText, update_ButtonClickAction, update_id);
 
-    // Definir URL e Tamanho na lista de download
+    // Establecer URL y tamaño en la lista de descargas
     for (let id of [1,0,2,3,4]) {
       dlUrl[id].href = video_mp4_array[id];
       dlUrl[id].download = video_config_media['metadata']['title'];
     }
 
-    // Funções para o player
+    // Funciones para el reproducor
     jwplayer().on('ready', e => {
-      // Seta o tempo do video pro salvo no localStorage		
+      // Establecer la hora del video guardado en localStorage		
       if (localStorage.getItem(video_id) != null) {
         const t = localStorage.getItem(video_id);
         document.getElementsByTagName("video")[0].currentTime = t >= 5 ? t - 5 : t;
       }
-      // Mantem fullscreen + autoplay caso tenha sido redirecionado usando a função "A seguir"/"Next up"
+      // Mantener pantalla completa + reproducción automática si se redirige usando la función "Siguiente"/"Siguiente"
       if (localStorage.getItem("next_up") === "true") {
         localStorage.setItem("next_up", false)
-        // jwplayer().setFullscreen(localStorage.getItem("next_up_fullscreen")); <- problemas com fullscreen automatico
+        // jwplayer().setFullscreen(localStorage.getItem("next_up_fullscreen")); <- problemas con la pantalla completa automática
         jwplayer().play();
       }
 
@@ -271,10 +271,10 @@ window.addEventListener("message", async e => {
         document.getElementById('player_div').classList.add('beta-layout')
     })
 
-    // Mostra uma tela de erro caso a legenda pedida não exista.
+    // Muestra una pantalla de error si el subtítulo solicitado no existe.
     jwplayer().on('error', e => {
       console.log(e)
-      codes = { 232011: "https://i.imgur.com/OufoM33.mp4" };
+      codes = { 232011: "" };
       if (codes[e.code]) {
         jwplayer().load({
           file: codes[e.code]
@@ -285,14 +285,14 @@ window.addEventListener("message", async e => {
       }
     });
     
-    // Fica salvando o tempo do video a cada 7 segundos.
+    // Sigue ahorrando el tiempo de video cada 7 segundos.
     setInterval(() => {
       if (jwplayer().getState() == "playing")
         localStorage.setItem(video_id, jwplayer().getPosition());
     }, 7000);
   }
 
-  /* ~~~~~~~~~~ FUNÇÕES ~~~~~~~~~~ */
+  /* ~~~~~~~~~~ FUNCIONES ~~~~~~~~~~ */
   function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
       await $.ajax({
@@ -330,13 +330,13 @@ window.addEventListener("message", async e => {
     return config || '{}'
   }
 
-  // ---- MP4 ---- (baixar)
-  // Obtem o link direto pelo trailer (premium)
+  // ---- MP4 ---- (bajar)
+  // Obtenga el enlace directo del tráiler (premium)
   function getDirectFile(url) {
     return url.replace(/\/clipFrom.*?index.m3u8/, '').replace('_,', '_').replace(url.split("/")[2], "fy.v.vrv.co");
   }
 
-  // Obtem o link direto pelo padrão (gratis)
+  // Obtenga el enlace directo por defecto (gratis)
   function mp4ListFromStream(url) {
     const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
     const res = [];
@@ -348,20 +348,20 @@ window.addEventListener("message", async e => {
     return res;
   }
 
-  // ---- M3U8 ---- (assistir)
-  // Obtem o link direto pelo trailer (premium) - to do
+  // ---- M3U8 ---- (ver)
+  // Obtenga el enlace directo del tráiler (premium) - para hacer
   function getDirectStream(url, idx) {
     setTimeout(() => request[idx].resolve(), 400);
   }
 
-  // Obtem o link direto pelo padrão (gratis)
+  // Obtenga el enlace directo por defecto (gratis)
   async function m3u8ListFromStream(url) {
     let m3u8list = []
     const master_m3u8 = await getAllOrigins(url);
 
     if (master_m3u8) {
       streams = master_m3u8.match(rgx)
-      m3u8list = streams.filter((el, idx) => idx%2===0) // %2 === 0 pois há cdns da akamai e da cloudflare
+      m3u8list = streams.filter((el, idx) => idx%2===0) // %2 === 0 porque hay cdns de akamai y cloudflare
     } else {
       for (let i in r) {
         const idx = i;
