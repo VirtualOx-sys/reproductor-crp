@@ -19,60 +19,70 @@
 </head>
 <body>
 	<div class="loading_container">
-		<div class="loading_icon">
-			<svg width="30px"  height="30px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
+		<div id="player-loading" class="loading_icon">
+			<svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
 				<circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(159.051 50 50)">
 					<animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
 				</circle>
 			</svg>
 		</div>
+    <div id="player-error" class="loading_icon" style="display: none;">
+			<svg width="30px" height="30px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 478.125 478.125" style="enable-background:new 0 0 478.125 478.125;" xml:space="preserve">
+        <g><g><g>
+          <circle fill="#ffffff" cx="239.904" cy="314.721" r="35.878"/>
+          <path fill="#ffffff" d="M256.657,127.525h-31.9c-10.557,0-19.125,8.645-19.125,19.125v101.975c0,10.48,8.645,19.125,19.125,19.125h31.9 c10.48,0,19.125-8.645,19.125-19.125V146.65C275.782,136.17,267.138,127.525,256.657,127.525z"/>
+          <path fill="#ffffff" d="M239.062,0C106.947,0,0,106.947,0,239.062s106.947,239.062,239.062,239.062c132.115,0,239.062-106.947,239.062-239.062 S371.178,0,239.062,0z M239.292,409.734c-94.171,0-170.595-76.348-170.595-170.596c0-94.248,76.347-170.595,170.595-170.595 s170.595,76.347,170.595,170.595C409.887,333.387,333.464,409.734,239.292,409.734z"/>
+        </g></g></g>
+      </svg>
+		</div>
 		<div class="loading_text_container">
-			<div class="loading_text">Tu video comenzará en un momento. (^-^)<span class="corta_linha"></span>Esperando datos de transmisión...</div>
+			<div id="loading-text" class="loading_text">Tu video comenzará en breve (^-^)<span class="corta_linha"></span>Esperando datos de transmisión...</div>
 		</div>
 	</div>
 	<div class="modal" style="transform: translate3d(0px, 0px, 0px);visibility: hidden;">
 		   <button class="close-modal">×</button>
 		   <div class="download-item">
 			<span class="partdditem quality not-copyable">1080p<sup>HD</sup></span>
-		   	<span id="1080p_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
-		   	<a id="1080p_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="1080p"></a>
+		   	<span id="1080_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+		   	<a id="1080_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="1080p"></a>
 		   </div>
 		   <div class="download-item">
 			<span class="partdditem quality not-copyable">720p<sup>HD</sup></span>
-		   	<span id="720p_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
-		   	<a id="720p_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="720p"></a>
+		   	<span id="720_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+		   	<a id="720_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="720p"></a>
 		   </div>
 		   <div class="download-item">
 		   	<span class="partdditem quality not-copyable">480p</span>
-		   	<span  id="480p_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
-		   	<a id="480p_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="480p"></a>
+		   	<span  id="480_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+		   	<a id="480_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="480p"></a>
 		   </div>
 		   <div class="download-item">
 		   	<span class="partdditem quality not-copyable">360p</span>
-		   	<span id="360p_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
-		   	<a id="360p_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="360p"></a>
+		   	<span id="360_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+		   	<a id="360_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="360p"></a>
 		   </div>
 		   <div class="download-item">
 		   	<span class="partdditem quality not-copyable">240p</span>
-		   	<span id="240p_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
-		   	<a id="240p_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="240p"></a>
+		   	<span id="240_down_size" class="partdditem size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+		   	<a id="240_down_url" class="partdditem down-icon" href="javascript:void(0);" target="_top" download="240p"></a>
 		   </div>
 	</div>
 	<div class="modal" style="transform: translate3d(0px, 0px, 0px);visibility: hidden;">
 		   <button class="close-modal">×</button>
 		   <div class="download-item">
 			<span class="partdditem quality not-copyable">Registro De Cambios</span>
-			<span class="partdditem size not-copyable">v1.2.0</span>
+			<span class="partdditem size not-copyable">v1.2.2</span>
 		   </div>
 		   <div class="download-item">
 			<span id="changelog" class="partdditem quality not-copyable" style="font-family: 'SFProDisplay-Regular';">
 				<strong>Actualización disponible:</strong><br/>
-				- Se agregó la compatibilidad con <strong>Crunchyroll Beta</strong><br/>
-				- Se eliminó la dependencia de allOrigins (proxy externo)<br/>
+				- Se solucionó la compatibilidad de <strong>Crunchyroll Beta</strong><br/>
+        - Se solucionó el botón de WebVideoCaster
+        - Se solucionó los valores predeterminados emergentes
 			</span>
 		   </div>
 		   <div class="download-item">
-		   	<span class="partdditem quality not-copyable">Download (pc)</span>
+		   	<span class="partdditem quality not-copyable">Descarga (pc)</span>
 		   	<a class="partdditem down-icon" href="https://github.com/VirtualOx-sys/crunchyroll-Premium/releases/download/estensi%C3%B3n/Crunchyroll.Premium.rar" target="_top" download></a>
 		   </div>
 	</div>
