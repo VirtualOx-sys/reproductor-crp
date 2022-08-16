@@ -352,8 +352,9 @@ window.addEventListener("message", async e => {
       return JSON.parse(video_config_media)
     else if (old_url) {
       const localelessUrl = old_url.split('/').length == 6 ? old_url.replace(/\.com\/[^/]*?\//, '.com/') : old_url
-      console.log("[CR Beta] URL universal:", localelessUrl)
-      const media_content = await getVilosMedia(localelessUrl + '?skip_wall=1')
+      const normalizedUrl = localelessUrl.replaceAll("--", "-")
+      console.log("[CR Beta] URL universal:", normalizedUrl)
+      const media_content = await getVilosMedia(normalizedUrl + '?skip_wall=1')
       return JSON.parse(media_content)
     }
     else return {}
