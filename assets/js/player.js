@@ -48,11 +48,23 @@ window.addEventListener("message", async e => {
 
   // Obtener transmisiones
   const streamlist = video_config_media['streams'];
-  const sourceLocale = getSourceLocale()
+
+  if (!streamlist || streamlist.length === 0) {
+      displayError(`No se pueden obtener secuencias de video.`);
+      return;
+  }
+
+  const sourceLocale = getSourceLocale();
 
   for (let stream of streamlist) {
-    const streamLang = stream.hardsub_lang ? stream.hardsub_lang : 'off';
-    if (!video_mp4_array[streamLang]) { stream_languages.push(streamLang); tracks[streamLang] = []; video_mp4_array[streamLang] = []; rows_number[streamLang] = -1 }
+      let streamLang = stream.hardsub_locale ? stream.hardsub_locale : 'off';
+      streamLang = streamLang.replace('-', '');
+      if (!video_mp4_array[streamLang]) {
+          stream_languages.push(streamLang);
+          tracks[streamLang] = [];
+          video_mp4_array[streamLang] = [];
+          rows_number[streamLang] = -1;
+      }
 
     // Patrón
     if (stream.format == 'adaptive_hls') {
