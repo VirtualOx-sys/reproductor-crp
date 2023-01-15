@@ -20,10 +20,8 @@ window.addEventListener('message', async e => {
   let force_mp4 = e.data.force_mp4;
   let tampermonkey = e.data.tampermonkey;
   let webvideocaster = e.data.webvideocaster;
-  let tampermonkey_proxy = 'https://crp-proxy.herokuapp.com/get?url=';
   let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(?:(\d+.mp4),(\d+.mp4),)?.*?m3u8/;
-  let video_config_media = await getConfigMedia(e.data.video_config_media, e.data.old_url);
-  let video_id = video_config_media['media_id'];
+  let video_config_media = JSON.parse(e.data.video_config_media);
   let up_next_cooldown = e.data.up_next_cooldown;
   let up_next_enable = e.data.up_next_enable;
   let up_next = e.data.up_next;
