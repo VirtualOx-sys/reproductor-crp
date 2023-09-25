@@ -155,9 +155,9 @@ window.addEventListener('message', async e => {
           });
 
       //Variables para los botones.
-      let update_iconPath = 'assets/icon/update_icon.svg';
+      /*let update_iconPath = 'assets/icon/update_icon.svg';
       let update_id = 'update-video-button';
-      let update_tooltipText = 'Actualización disponible';
+      let update_tooltipText = 'Actualización disponible';*/
 
       let rewind_iconPath = 'assets/icon/replay-10s.svg';
       let rewind_id = 'rewind-video-button';
