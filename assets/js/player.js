@@ -10,7 +10,7 @@ window.addEventListener('message', async e => {
 
   console.log('[CR Premium] ¡Reproductor Encontrado!');
 
-  // Variáveis principais
+  // Variables principales
   const r = { 0: '720', 1: '1080', 2: '480', 3: '360', 4: '240' };
   const lgLangs = { 'ptBR': 'Português (BR)', 'enUS': 'English (US)', 'enGB': 'English (UK)', 'esLA': 'Español (LA)', 'esES': 'Español (ES)', 'ptPT': 'Português (PT)', 'frFR': 'Français (FR)', 'deDE': 'Deutsch (DE)', 'arME': '(ME) عربي', 'itIT': 'Italiano (IT)', 'ruRU': 'Русский (RU)' };
   const epLangs = { 'ptBR': 'Episódio', 'enUS': 'Episode', 'enGB': 'Episode', 'esLA': 'Episodio', 'esES': 'Episodio', 'ptPT': 'Episódio', 'frFR': 'Épisode', 'deDE': 'Folge', 'arME': 'الحلقة', 'itIT': 'Episodio', 'ruRU': 'Серия' };
@@ -46,7 +46,7 @@ window.addEventListener('message', async e => {
   if (force_mp4) console.log('[CR Premium] Forzar MP4 (solución de Chromecast)');
 
   // Obtener transmisiones
-  const streamlist = video_config_media['streams'];
+  const streamlist = getStreams(video_config_media['streams']);
 
   if (!streamlist || streamlist.length === 0) {
       displayError(`No se pueden obtener secuencias de video.`);
@@ -269,6 +269,18 @@ window.addEventListener('message', async e => {
   })();
 
   /* ~~~~~~~~~~ FUNCIONES ~~~~~~~~~~ */
+
+    function getStreams(streams) {
+        var array_streams = [];
+        var adaptive_hls = streams.adaptive_hls;
+        Object.keys(adaptive_hls).forEach(lang => {
+            var stream = adaptive_hls[lang];
+            stream['type'] = 'adaptive_hls';
+            array_streams.push(stream);
+        });
+        return array_streams;
+    }
+
   // MP4 (descargar) - Premium: Obtenga el enlace directo del tráiler
   function getDirectFile(url) {
       return url
